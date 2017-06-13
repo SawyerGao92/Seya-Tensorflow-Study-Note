@@ -88,7 +88,7 @@ sudo pip install --ignore-installed --upgrade $TF_BINARY_URL`
 
 ## 3. 目录结构
 
-![暂时无法显示图片][https://cl.ly/0t3Q0h2C3v3g]
+![暂时无法显示图片](https://cl.ly/0t3Q0h2C3v3g/P1.jpg)
 
 按照上一节的pip安装方法后，tensorflow整个库包被安装到了目录下；在上图中，左边为安装后位置的文件夹，右边的是从github上下载的源码包。发现配置过程中删除了部分文件（examples下的部分文件不翼而飞了）（原来源代码中还有一个model文件夹，其实和examples都是例子，在1.0.0之后models文件夹也去除了），如果想看某些例子文件，可以去源代码中examples文件夹下去看。
 
