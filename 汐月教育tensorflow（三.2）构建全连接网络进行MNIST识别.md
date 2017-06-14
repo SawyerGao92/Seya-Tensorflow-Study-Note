@@ -24,16 +24,6 @@ CSDN博客：http://blog.csdn.net/sinat_23137713
 
 <br />
 
-Tensorflow中自带示例的MNIST预测源代码位于/tensorflow/examples/tutorials/mnist/fully_connected_feed.py文件中，本文的主要内容就是详解此代码中的内容。关于
-
-此代码和/tensorflow/Models/image/mnist/convolutional.py 可以看出来都是解决MNSIT识别，但是是出自两个人之手，两个人代码的都有借鉴价值。
-
-examples：纯为了官网上的教程写的示例代码，就是不同人以不同风格写的
-
-models：比较靠谱的，固定到代码中的代码结构。
-
-目前针对于MNIST这个代码，我感觉example中的那个人写的更好点呢。
-
 本文看的代码在源代码中的“源代码tensorflow目录/examples/tutorials/mnist/fully_connected_feed”
 
 
