@@ -18,7 +18,11 @@ CSDN博客：http://blog.csdn.net/sinat_23137713
 
 ***
 
+<br />
 
+<br />
+
+<br />
 
 # 一. 安装和卸载
 
@@ -73,7 +77,7 @@ sudo pip install --ignore-installed --upgrade $TF_BINARY_URL`
     source deactivate tensorflow
 注意：不知道为什么我好像新建envs环境之后，经常无法安装tensorflow到envs里，反倒是安装到usr/local/lib之后再copy一份到anaconda比较方便。  
 
-  
+<br />
 
 # 二. 安装位置
 
@@ -94,7 +98,7 @@ sudo pip install --ignore-installed --upgrade $TF_BINARY_URL`
 
 ***(Example：用来存放网络教程中讲的源代码。Model：储存目前TF上完善的模型的代码。包括embedding（词向量）、image（图像）、rnn（循环神经网络）这些代码。都是可以直接运行的。这是针对0.8.0版本说的，现在models文件夹已经没有)***
 
-  
+<br />
 
 # 三. 运行段代码，检查是否安装成功
 
@@ -119,7 +123,7 @@ print(sess.run(hello))
 
 `Hello, TensorFlow!`
 
-  
+<br />
 
 # 四. 配置GPU下安装TF
 

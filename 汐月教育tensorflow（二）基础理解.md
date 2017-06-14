@@ -16,7 +16,13 @@ CSDN博客：http://blog.csdn.net/sinat_23137713
 
 4）本文主要用来记录本人初学Tensorflow时遇到的问题，特此记录下来，因此并不是所有的方法都会面面俱到。希望后人看到可以引以为鉴，避免走弯路。同时毕竟水平有限，希望有饱含学识之士看到其中的问题之后，可以悉心指出，本人感激不尽。
 
-  
+---
+
+<br />
+
+<br />
+
+<br />
 
 # 一. 基础
 
@@ -168,7 +174,7 @@ saver.restore(<sess变量恢复到会话>, <读取的地址>)
 
 注意，当你从文件中恢复变量时，不需要事先对它们做初始化（不需要global_vatiables_initializer）。
 
-  
+<br />
 
 # 二. 评估模型：损失函数
 
@@ -199,7 +205,7 @@ print(sess.run(loss, {x:[1,2,3,4], y:[0,-1,-2,-3]})) # loss调用linaear_model,l
 
 参考：http://www.tuicool.com/articles/n22m2az
 
-  
+<br />
 
 # 三. 训练参数
 
@@ -263,7 +269,7 @@ input_fn = tf.contrib.learn.io.numpy_input_fn({"x":x}, y, batch_size=4, num_epoc
 
 2）虽然乍看之下这种方法很无脑，只需要输入和输出的文件，但是也可以自己建立模型输入函数中，但我感觉就不如自己全写了。
 
-  
+<br />
 
 # 四. TersorBoard
 
@@ -283,7 +289,7 @@ python tensorflow/tensorboard/tensorboard.py --logdir=<之前proto对象输出�
 
 然后，浏览器中输入 `localhost:6006` 来查看 TensorBoard
 
-  
+<br />
 
 # 五. 保存检查点
 
@@ -291,9 +297,9 @@ python tensorflow/tensorboard/tensorboard.py --logdir=<之前proto对象输出�
 
 见本文 一.5.7
 
-  
+<br />
 
-
+<br />
 
 参考附录：
 感谢各位无私的奉献
