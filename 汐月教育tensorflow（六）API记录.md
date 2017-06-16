@@ -82,3 +82,23 @@ tf.string_to_number    tf.to_double    tf.to_float    tf.to_bfloat16    tf.to_in
 ## 2. 切片和连结
 
 ### 1） tf.concat(concat_dim, values, name='concat')  沿一维连接张量
+
+<br />
+
+# 四. 开发版代码（tf.contrib）
+
+tf.contrib中主要包含现在实验性的代码
+
+## 1. 构建-误差-训练过程的高层API（tf.contrib.learn）
+
+详情请见：
+
+https://www.tensorflow.org/get_started/tflearn
+
+https://www.tensorflow.org/get_started/input_fn
+
+https://www.tensorflow.org/get_started/monitors
+
+API介绍请见：
+
+ https://www.tensorflow.org/api_guides/python/contrib.learn
