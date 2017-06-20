@@ -156,3 +156,7 @@ condaremove mkl mkl-service
 
 ![](http://orkjdoapd.bkt.clouddn.com/Seya-Tensorflow-Study-Note/4.9%20skip-gram%E7%AE%97%E6%B3%95.png)
 
+# 四.  Tensorflow-nce_loss解析
+
+tf.nn.nce_loss: 计算和返回噪声对比估计训练损失.
+

@@ -67,6 +67,12 @@ with tf.Session() as sess:
 
 # 三. TensorBoard
 
+将各种summary都写入路径log_dir，然后打开tensorboard从上面可以切换查看何种属性．
+
+TensorBoard如下所示，顶部可以切换查看什么属性：
+
+![](http://orkjdoapd.bkt.clouddn.com/Seya-Tensorflow-Study-Note/5.1%20Tensorboard.png)
+
 ## 1. 折线图
 
 ### 1). 构建网络过程中，将tf.summary op绑定到变量
@@ -124,19 +130,106 @@ tensorboard --logdir=path/to/log-directory
 
 https://github.com/tensorflow/tensorflow/blob/r1.1/tensorflow/examples/tutorials/mnist/mnist_with_summaries.py
 
-## 2. Embedding 可视化
+## 2. Embedding 嵌入可视化
 
-Embedding Projector(EP): 对于高维数据像词嵌入的交互式可视化.
+**Embedding Projector(EP)**: 对于高维数据像词嵌入的交互式可视化.
 
 If you are interested in embeddings of images, check out [this article](http://colah.github.io/posts/2014-10-Visualizing-MNIST/) for interesting visualizations of MNIST images. 
 
 On the other hand, if you are interested in word embeddings, [this article](http://colah.github.io/posts/2015-01-Visualizing-Representations/) gives a good introduction.
 
-默认情况下, EP利用主成分分析将高维数据降维到3-维.
+默认情况下, EP利用主成分分析(PCA/t-SNE)将高维数据降维到3-维.
+
+### 1) 创建词嵌入的查询变量
+
+```python
+embeddings = tf.Variable(tf.random_uniform([voc_size, embedding_size], -1.0, 1.0))
+```
+
+### 2) 周期性保存模型变量到路径为LOG_DIR的ｍodel.ckpt检查点
+
+```python
+saver = tf.train.Saver()
+saver.save(session, os.path.join(LOG_DIR, "model.ckpt"), step变量)
+```
+
+### 3) 原始数据绑定到模型变量embedding(可选) 
+
+#### step1:对于元数据的储存形式(TSV文件<Tab分割的csv>)：
+
+* 词的元数据
+
+下面例子中的第一行是列名，分别是单词是什么，和出现的频率，然后这里对应于embedding是根据行号确定的．
+
+```
+Word\tFrequency
+Airplane\t345
+Car\t241
+...
+```
+
+* 图片的元数据
+
+略
+
+#### step2:如果你有一些原始数据（标签/图片）需要绑定到你的嵌入，可以通过：
+
+* 在LOG_DIR位置，手动保存一个 projector_config.pbtxt
+
+```
+embeddings {
+  tensor_name: 'word_embedding'
+  metadata_path: '$LOG_DIR/metadata.tsv'
+}
+```
+
+* 使用python API: projector来绑定,　自动生成 projector_config.pbtxt
+
+```python
+from tensorflow.contrib.tensorboard.plugins import projector
+N = 10000 　# 单词字典大小
+D = 200 　　# 词向量的长度
+embedding_var = tf.Variable(tf.random_normal([N,D]), name='word_embedding')
+# Format: tensorflow/tensorboard/plugins/projector/projector_config.proto
+config = projector.ProjectorConfig()
+# 你可以添加多个embeddings，这里我们就先添加一个
+embedding = config.embeddings.add()
+embedding.tensor_name = embedding_var.name
+# Link this tensor to its metadata file (e.g. labels).
+embedding.metadata_path = os.path.join(LOG_DIR, 'metadata.tsv')
+# Use the same LOG_DIR where you stored your checkpoint.
+summary_writer = tf.summary.FileWriter(LOG_DIR)
+# 这个函数生成projector_config.pbtxt文件，在目录LOG_DIR．
+projector.visualize_embeddings(summary_writer, config)
+```
+
+### 4) 启动Tensorboard-指到LOG_DIR路径 
+
+`tensorboard --logdir=LOG_DIR`
+
+在浏览器中打开提示地址．
+
+网页介绍：
+
+* 数据面板：　左上方，选择运行，嵌入，和颜色．
+
+* 投影面板：　左下方，选择投影类型（例如PCA，t-SNE）
+
+  * PCA（线性映射）：将高维数据降低到10维，然后EP允许你10选２或３维然后画出来．
+  * t-SNE（流性－非线性降维）：一篇伟大的文章
+  * 自定义
+
+* 查询面板：　右侧，查找特定点，搜寻邻居
+
+  ​
+
+## 3. 网络流图可视化
+
+反正这些东西全都保存到log_dir路径，
 
 <br />
 
-# 五. 保存检查点
+# 四. 保存检查点
 
 用来保存模型, 保存网络中参数权值矩阵,偏置向量等数据. 
 
