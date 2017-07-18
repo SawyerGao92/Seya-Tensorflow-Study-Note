@@ -79,9 +79,79 @@ metric是度量标准，总看成matrix。
 
 tf.string_to_number    tf.to_double    tf.to_float    tf.to_bfloat16    tf.to_int32    tf.to_int64    tf.cast    tf.bitcast    tf.saturate_cast
 
-## 2. 切片和连结
+## 2.  张量中属性和张量变形
 
-### 1） tf.concat(concat_dim, values, name='concat')  沿一维连接张量
+### 1)  查看张量属性
+
+tf.shape
+
+tf.size
+
+tf.rank
+
+### 2)  张量变形
+
+tf.reshape
+
+tf.squeeze
+
+## 3. 切片和连结
+
+### 1)  tf.slice(input_,begin,size) 张量扣取
+
+​	从一个张量获取一部分数据，切片分割．
+
+​	input_：张量，假设秩为ｋ
+
+​	begin：分割的起始位置，一个ｋ维的张量
+
+​	size：扣取张量的大小，也是一个ｋ维的张量，第一维代表在原张量第一维的步长．
+
+### 2)  tf.strided_slice  张量跨步扣取
+
+​	跟上面差不多，上面是提供起始位置和步长
+
+​	这个是提供起始和终止位置
+
+### 3)  tf.split(value, num_or_size_splits,axis)  张量沿某维度分割  
+
+​	value:　张量，假设秩为ｋ
+
+​	num_or_size_splits:  => num_splits: 整数，将axis这一维度平分　　＝>size_splits: 任意维度张量，其和等于axis这一维的长度.
+
+​	axis:    按照这一维度进行分割
+
+### 4)  tf.tile(input, multiples)  根据小张量重复创建大张量 
+
+### 5)  tf.pad(tensor, paddings)  
+
+​	将tensor进行拓展，可能填充０或者重复tensor的一些内容．
+
+### 6)  tf.concat(values, axis)  
+
+​	根据某一维度连接张量，连接之前每个张量都是秩为ｒ，连接后还是ｒ．
+
+### 7)  tf.stack(values,axis)
+
+​	将一系列秩为ｒ的张量打包为ｒ＋１的张量
+
+​	values:  一个由张量组成的列表,　这里面的每个张量秩为ｒ
+
+### 8)  tf.transpose(a,perm)  转置
+
+​	a：输入矩阵
+
+​	perm：参数，对于高维矩阵
+
+对于高维矩阵
+
+
+
+
+
+### 7)  tf.concat
+
+​	沿一维连接张量
 
 <br />
 

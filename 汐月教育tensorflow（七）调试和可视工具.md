@@ -35,7 +35,17 @@ CSDN博客：http://blog.csdn.net/sinat_23137713
 
 <br />
 
-# 二. 查看CPU/GPU运行详情
+# 二. 什么是Supervisor?
+
+监测器：帮助训练时间长的训练：
+
+* 处理关机和崩溃问题
+* 在关机和崩溃之后可以重启继续运行：定期保存检查点
+* 可以通过TensorBoard监控：定期运行summary
+
+详情：https://www.tensorflow.org/programmers_guide/supervisor
+
+# 三. 查看CPU/GPU运行详情
 
 目前需要一个方法，可以查看CPU中的运行时间之类的。
 
@@ -65,13 +75,17 @@ with tf.Session() as sess:
 
 <br />
 
-# 三. TensorBoard
+# 四. TensorBoard
 
-将各种summary都写入路径log_dir，然后打开tensorboard从上面可以切换查看何种属性．
+将各种summary都写入路径log_dir，然后打开tensorboard指向这个路径，从上面可以切换查看何种属性．
 
 TensorBoard如下所示，顶部可以切换查看什么属性：
 
 ![](http://orkjdoapd.bkt.clouddn.com/Seya-Tensorflow-Study-Note/5.1%20Tensorboard.png)
+
+* 演示代码
+
+https://github.com/tensorflow/tensorflow/blob/r1.1/tensorflow/examples/tutorials/mnist/mnist_with_summaries.py
 
 ## 1. 折线图
 
@@ -85,7 +99,9 @@ https://www.tensorflow.org/api_guides/python/summary
 
 `tf.summary.image`: 记录图片?
 
-`tf.summary.histogram`: 记录柱状图？多元素的东西？矩阵？
+`tf.summary.histogram`: 输入任意尺寸形状的，横坐标统计这个张量中某区间元素的个数．纵坐标越大颜色越深表示时步越大．下图某点表示在以2.25为中心的这个区间中有177个元素．
+
+![](http://orkjdoapd.bkt.clouddn.com/Seya-Tensorflow-Study-Note/5.2%20moving_mean_tooltip.png)
 
 ### 2). 初始化
 
@@ -103,7 +119,7 @@ https://www.tensorflow.org/api_guides/python/summary
 
 ### 3). 写入磁盘
 
-每次循环的时候都sess.run[merge_all之后的变量]
+每ｋ次循环就可以sess.run[merge_all之后的变量]
 
 输出的结果,添加进FileWriter:
 
@@ -111,6 +127,8 @@ https://www.tensorflow.org/api_guides/python/summary
 summary, _ = sess.run([merged, train_step], feed_dict=feed_dict(True))
 train_writer.add_summary(summary, i)
 ```
+
+这个过程是为了保存查看训练过程中的内存和运行时间，之后在Board可以查看
 
 ### 4). 启动Tensorboard
 
@@ -126,9 +144,7 @@ tensorboard --logdir=path/to/log-directory
 
 然后，浏览器中输入 `localhost:6006` 来查看 TensorBoard
 
-### 5). 演示代码
 
-https://github.com/tensorflow/tensorflow/blob/r1.1/tensorflow/examples/tutorials/mnist/mnist_with_summaries.py
 
 ## 2. Embedding 嵌入可视化
 
@@ -225,11 +241,46 @@ projector.visualize_embeddings(summary_writer, config)
 
 ## 3. 网络流图可视化
 
-反正这些东西全都保存到log_dir路径，
+反正这些东西全都保存到log_dir路径，打开TensorBoard指向该路径，单击顶部窗格的图表选项卡，然后使用左上角的菜单进行适当的运行，当然要用summary.histogram中要记录所有信息
+
+* 命名范围和节点
+
+  变量的名称是有范围的和层次结构的，这里演示一个三个op在一个hidden名字范围下的例子：
+
+  ```python
+  import tensorflow as tf
+
+  with tf.name_scope('hidden') as scope:
+    a = tf.constant(5, name='alpha')
+    W = tf.Variable(tf.random_uniform([1, 2], -1.0, 1.0), name='weights')
+    b = tf.Variable(tf.zeros([1]), name='biases')
+  ```
+
+  三个op的名字将会是：
+
+  * `hidden/alpha`
+  * `hidden/weights`
+  * `hidden/biases`
+
+  默认情况还在图中会出现一个节点，你可以双击或点击＇+＇号展开该节点．
+
+  单击节点右上角会出现**节点标签**
+
+* 连线类型
+
+  * 实线：数据依赖，两个ｏｐ之间张量的流动；边的粗细反映总张量的尺寸
+  * 虚线：控制依赖，变量初始化？
+  * 单独放置，无线条：将度高的节点放到右侧辅助区域，可以通过右键remove from main graph调整是否单独放置．
+  * 叠放：将前面英文一致，后面数字不一致的ｏｐ进行叠放
+
+* 颜色配置
+
+  * structure: 相同结构的op显示一样的颜色
+  * device: cpu/gpu
 
 <br />
 
-# 四. 保存检查点
+# 五. 保存检查点
 
 用来保存模型, 保存网络中参数权值矩阵,偏置向量等数据. 
 

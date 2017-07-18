@@ -36,7 +36,12 @@ CSDN博客：http://blog.csdn.net/sinat_23137713
 
 ### 2）运行图
 
-## 3. 常量
+## 3. 张量
+
+*　张量在numpy中定义，指多维矩阵，tensorflow中的常量变量占位符都是一种缓冲区，中间包含着张量．
+*　ｏｐ之间传递靠的张量
+
+## 4. 常量
 
 是一种不需要输入值，输出是它内部储存的值得节点。
 
@@ -55,7 +60,7 @@ sess = tf.Session()
 print(sess.run(node1))
 ```
 
-## 4. 外部输入：占位符
+## 5. 外部输入：占位符
 
 图可以接受外部输入，称为占位符。 占位符是对稍后提供值的承诺。
 
@@ -74,19 +79,19 @@ print(sess.run(adder_node, {a: 3, b:4.5}))
 print(sess.run(adder_node, {a: [1,3], b: [2, 4]}))
 ```
 
-## 5. 变量
+## 6. 变量
 
-其实占位符也算是变量，但是它只能接受外部。变量是，不解释了，你懂得
+其实占位符也算是变量，但是它只能接受外部。变量是**包含张量的内存缓冲区**，同样常量，占位符也都是．
 
 ### 1）构建方法：
 
-需要一个类型和初始值
+通过将张量传递到变量构建
 
 ```python
 W = tf.Variable([.3], tf.float32)
 b = tf.Variable([-.3], tf.float32)
-c= tf.Variable(tf.random_normal([784, 200], stddev=0.35),name="c")     # 随机初始化，高斯分布
-d= tf.Variable(c.initialized_value() * 0.2, name="d")     # 从另一变量初始化，需要加上.initialized_value()
+c= tf.Variable(tf.random_normal([784, 200], stddev=0.35),name="c")    # 随机初始化，高斯分布
+d= tf.Variable(c.initialized_value() * 0.2, name="d")     　　　　　　　# 从另一变量初始化，需要加上.initialized_value()
 x = tf.placeholder(tf.float32)
 linear_model = W * x + b
 ```
@@ -124,7 +129,7 @@ print(v.eval(sess))
 
 ```python
 with tf.Session() as sess:
-print(v.eval())           #在with旗下可以省略sess
+	print(v.eval())           #在with旗下可以省略sess
 ```
 
 ### 4）查看属性：
@@ -173,6 +178,171 @@ saver.restore(<sess变量恢复到会话>, <读取的地址>)
 ```
 
 注意，当你从文件中恢复变量时，不需要事先对它们做初始化（不需要global_vatiables_initializer）。
+
+### 8) 共享变量(附)
+
+参见：<http://www.tensorfly.cn/tfdoc/how_tos/variable_scope.html>
+
+#### 问题：
+
+像ＲＮＮ这种结构，需要多次调用同一个inference函数，重要的是其中的变量许要共享，应该为同一个．
+
+```python
+def inference():
+    １．创建变量
+    ２．推测tensorflow图
+```
+
+#### 解决：
+
+##### 方法１：创建变量的部分放到inference函数外面
+
+方法１缺点：破坏了封装性
+
+##### 方法２：变量作用域
+
+```python
+with tf.variable_scope("foo", reuse=True):
+    v = tf.get_variable("v", [1])
+```
+
+###### 函数：get_variable
+
+ `v = tf.get_variable(name, shape, dtype, initializer)`
+
+​	检查所有变量中是否存在foo+v变量，如果不存在则用**initializer[shape]**创建，如果存在则调用该变量．
+
+​	initializer：初始化器包括
+
+​	`tf.constant_initializer(value)` 初始化一切所提供的值,
+
+​	`tf.random_uniform_initializer(a, b)`从a到b均匀初始化,
+
+​	`tf.random_normal_initializer(mean, stddev)` 用所给平均值和标准差初		始化均匀分布.
+
+###### 函数：variable_scope()
+
+​	 为变量提供命名空间，get_variable如果在两个命名空间中就是两个变量，如果在一个变量空间中添加一个`reuse_variables()`就是共享变量
+
+* 情况１：当`tf.get_variable_scope().reuse == False`，创建新变量
+
+​	将会创建新变量, 如果已经存在，则抛出异常ValueError
+
+​	另外：不能直接设置 `reuse` 为 `False` ,可以输入一个重用变量作用域,然后就释放掉,就成为非重用的变量.当打开一个变量作用域时,使用`reuse=True` 作为参数是可以的.但也要注意，同一个原因，`reuse`参数是不可继承.所以当你打开一个重用变量作用域，那么所有的子作用域也将会被重用.
+
+```python
+with tf.variable_scope("root"):
+    # resue = False 将会创建新变量
+    assert tf.get_variable_scope().reuse == False
+    with tf.variable_scope("foo"):
+        # 开启一个子空间，reuse = False 同样会创建新变量
+        assert tf.get_variable_scope().reuse == False
+    with tf.variable_scope("foo", reuse=True):
+        # 开启一个子空间，reuse = True　明确说明调用其他变量
+        assert tf.get_variable_scope().reuse == True
+        with tf.variable_scope("bar"):
+            # 现在子空间继承了, reuse = True 会调用其他变量
+            assert tf.get_variable_scope().reuse == True
+    # 跳出了子空间, 又变回reuse = False了.
+    assert tf.get_variable_scope().reuse == False
+```
+
+* 情况２：当`tf.get_variable_scope().reuse == True`，共享变量
+
+  get_variable将会调用已经存在的变量，他的全称和当前变量的作用域名+所提供的名字是否相等．如果不存在，则抛出ValueError ．
+
+  示例：
+
+  ```python
+  with tf.variable_scope("image_filters") as scope:
+      result1 = my_image_filter(image1)
+      scope.reuse_variables()　　　
+      result2 = my_image_filter(image2)
+  ```
+
+  或者
+
+  `tf.get_variable_scope()`可以检索当前变量作用域
+
+  ```python
+  with tf.variable_scope("foo"):
+      v = tf.get_variable("v", [1])
+      tf.get_variable_scope().reuse_variables()
+      v1 = tf.get_variable("v", [1])
+  assert v1 == v
+  ```
+
+  或者
+
+  ```python
+  with tf.variable_scope("foo"):
+      v = tf.get_variable("v", [1])
+  with tf.variable_scope("foo", reuse=True):
+      v1 = tf.get_variable("v", [1])
+  assert v1 == v
+  ```
+
+* 其他知识
+
+  1) 创建作用域的时候,不一定用名字,也可以用作用域对象
+
+  ```python
+  with tf.variable_scope("foo") as foo_scope:
+      v = tf.get_variable("v", [1])
+  with tf.variable_scope(foo_scope)
+      w = tf.get_variable("w", [1])
+  with tf.variable_scope(foo_scope, reuse=True)
+      v1 = tf.get_variable("v", [1])
+      w1 = tf.get_variable("w", [1])
+  assert v1 == v
+  assert w1 == w
+  ```
+
+  2) 开启新作用域,如果调用的以前存在的作用域,则会跳过当前作用域前缀
+
+  ```python
+  with tf.variable_scope("foo") as foo_scope:
+      assert foo_scope.name == "foo"
+  with tf.variable_scope("bar")
+      with tf.variable_scope("baz") as other_scope:
+          assert other_scope.name == "bar/baz"
+          with tf.variable_scope(foo_scope) as foo_scope2:
+              assert foo_scope2.name == "foo"  # Not changed.
+  ```
+
+  3) 创建作用域时, 可以提到initializer, 则下面的get_variable都是这个initializer.
+
+  ```python
+  with tf.variable_scope("foo", initializer=tf.constant_initializer(0.4)):
+      v = tf.get_variable("v", [1])
+  ```
+
+  4) 之前是变量作用域,还可以有ops作用域,name_scope可以修改op
+
+  ```python
+  with tf.variable_scope("foo"):
+      with tf.name_scope("bar"):
+          v = tf.get_variable("v", [1])
+          x = 1.0 + v
+  assert v.name == "foo/v:0"
+  assert x.op.name == "foo/bar/add"
+  ```
+
+  ​
+
+## 7. 队列
+
+对于进行异步运算有很大帮助
+
+FIFOQueue:　先入先出队列
+
+过程如下：
+
+![](http://orkjdoapd.bkt.clouddn.com/Seya-Tensorflow-Study-Note/2.1%20IncremeterFifoQueue.gif)
+
+* enqueue: 入栈
+* enqueue_many: 入栈很多元素
+* dequeue: 出栈
 
 <br />
 
@@ -287,6 +457,9 @@ input_fn = tf.contrib.learn.io.numpy_input_fn({"x":x}, y, batch_size=4, num_epoc
 
 <br />
 
+
+
 参考附录：
+
 感谢各位无私的奉献
 1) http://dataunion.org/26447.html
