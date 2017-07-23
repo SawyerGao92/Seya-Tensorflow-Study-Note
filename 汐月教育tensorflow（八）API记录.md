@@ -56,6 +56,144 @@ metric是度量标准，总看成matrix。
 
 <br />
 
+# 二. 数学 (Math)
+
+**https://www.tensorflow.org/versions/r0.12/api_docs/python/math_ops/**
+
+## 1. 算数运算符
+
+- `tf.add`: 加
+
+- `tf.subtract`: 减
+
+- `tf.multiply`: 乘
+
+- `tf.scalar_mul`: 标量乘以张量
+
+- `tf.div`: 除
+
+  其他除法：
+
+  - [`tf.divide(x, y, name=None)`](https://www.tensorflow.org/versions/r0.12/api_docs/python/math_ops/arithmetic_operators#divide)
+  - [`tf.truediv(x, y, name=None)`](https://www.tensorflow.org/versions/r0.12/api_docs/python/math_ops/arithmetic_operators#truediv)
+  - [`tf.floordiv(x, y, name=None)`](https://www.tensorflow.org/versions/r0.12/api_docs/python/math_ops/arithmetic_operators#floordiv)
+  - [`tf.realdiv(x, y, name=None)`](https://www.tensorflow.org/versions/r0.12/api_docs/python/math_ops/arithmetic_operators#realdiv)
+  - [`tf.truncatediv(x, y, name=None)`](https://www.tensorflow.org/versions/r0.12/api_docs/python/math_ops/arithmetic_operators#truncatediv)
+  - [`tf.floor_div(x, y, name=None)`](https://www.tensorflow.org/versions/r0.12/api_docs/python/math_ops/arithmetic_operators#floor_div)
+
+- [`tf.truncatemod(x, y, name=None)`](https://www.tensorflow.org/versions/r0.12/api_docs/python/math_ops/arithmetic_operators#truncatemod)
+
+- [`tf.floormod(x, y, name=None)`](https://www.tensorflow.org/versions/r0.12/api_docs/python/math_ops/arithmetic_operators#floormod)
+
+- [`tf.mod(x, y, name=None)`](https://www.tensorflow.org/versions/r0.12/api_docs/python/math_ops/arithmetic_operators#mod)
+
+- [`tf.cross(a, b, name=None)`](https://www.tensorflow.org/versions/r0.12/api_docs/python/math_ops/arithmetic_operators#cross) ：计算成对交叉积
+
+## 2. 基本数学函数
+
+- `tf.add_n`: 将一份由张量组成的list,全都加起来,加成一份张量
+
+- `tf.abs`: 计算张量的绝对值
+
+- `tf.negative`: 求反
+
+- `tf.sign` ：
+
+  y = sign(x) 
+
+  = 
+
+  -1  if  x < 0; 
+
+  0   if  x == 0; 
+
+  1   if  x > 0.
+
+- [`tf.reciprocal(x, name=None)`](https://www.tensorflow.org/versions/r0.12/api_docs/python/math_ops/basic_math_functions#reciprocal) ：计算倒数
+- [`tf.square(x, name=None)`](https://www.tensorflow.org/versions/r0.12/api_docs/python/math_ops/basic_math_functions#square)： 计算每个元素的平方
+- [`tf.round(x, name=None)`](https://www.tensorflow.org/versions/r0.12/api_docs/python/math_ops/basic_math_functions#round)： 每个元素四舍五入
+- [`tf.sqrt(x, name=None)`](https://www.tensorflow.org/versions/r0.12/api_docs/python/math_ops/basic_math_functions#sqrt)： 每个元素求根号
+- [`tf.rsqrt(x, name=None)`](https://www.tensorflow.org/versions/r0.12/api_docs/python/math_ops/basic_math_functions#rsqrt)： 每个元素求根号再求倒数
+- [`tf.pow(x, y, name=None)`](https://www.tensorflow.org/versions/r0.12/api_docs/python/math_ops/basic_math_functions#pow)： 计算x的y次幂
+- [`tf.exp(x, name=None)`](https://www.tensorflow.org/versions/r0.12/api_docs/python/math_ops/basic_math_functions#exp)： 计算e的x次幂
+- [`tf.log(x, name=None)`](https://www.tensorflow.org/versions/r0.12/api_docs/python/math_ops/basic_math_functions#log)： 计算log的e的x
+
+## 3. 矩阵数学函数
+
+- [`tf.diag(diagonal, name=None)`](https://www.tensorflow.org/versions/r0.12/api_docs/python/math_ops/matrix_math_functions#diag)：输入一个向量，输出基于这个向量的对角张量。
+
+- [`tf.diag_part(input, name=None)`](https://www.tensorflow.org/versions/r0.12/api_docs/python/math_ops/matrix_math_functions#diag_part)：输入一个张量，返回这个张量的对角向量
+
+- [`tf.trace(x, name=None)`](https://www.tensorflow.org/versions/r0.12/api_docs/python/math_ops/matrix_math_functions#trace)：计算一个张量，其对角向量的和
+
+- [`tf.transpose(a, perm=None, name='transpose')`](https://www.tensorflow.org/versions/r0.12/api_docs/python/math_ops/matrix_math_functions#transpose)
+
+- [`tf.eye(num_rows, num_columns=None, batch_shape=None, dtype=tf.float32, name=None)`](https://www.tensorflow.org/versions/r0.12/api_docs/python/math_ops/matrix_math_functions#eye)： 构建单位矩阵
+
+- [`tf.matrix_diag(diagonal, name=None)`](https://www.tensorflow.org/versions/r0.12/api_docs/python/math_ops/matrix_math_functions#matrix_diag)
+
+- [`tf.matrix_diag_part(input, name=None)`](https://www.tensorflow.org/versions/r0.12/api_docs/python/math_ops/matrix_math_functions#matrix_diag_part)
+
+- [`tf.matrix_band_part(input, num_lower, num_upper, name=None)`](https://www.tensorflow.org/versions/r0.12/api_docs/python/math_ops/matrix_math_functions#matrix_band_part)
+
+- [`tf.matrix_set_diag(input, diagonal, name=None)`](https://www.tensorflow.org/versions/r0.12/api_docs/python/math_ops/matrix_math_functions#matrix_set_diag)
+
+- [`tf.matrix_transpose(a, name='matrix_transpose')`](https://www.tensorflow.org/versions/r0.12/api_docs/python/math_ops/matrix_math_functions#matrix_transpose)
+
+- [`tf.matmul(a, b, transpose_a=False, transpose_b=False, adjoint_a=False, adjoint_b=False, a_is_sparse=False, b_is_sparse=False, name=None)`](https://www.tensorflow.org/versions/r0.12/api_docs/python/math_ops/matrix_math_functions#matmul) ：普通矩阵相乘
+
+  tf.batch_matmul(x, y, adj_x=None, adj_y=None, name=None)： 考虑到三维的矩阵和矩阵的相乘，去掉batch那一维度，然后相乘
+
+  但是batch_matmul已经被放弃了，全都融入matmul了
+
+  ​
+
+- [`tf.norm`](https://www.tensorflow.org/versions/master/api_docs/python/tf/norm)
+
+- [`tf.matrix_determinant(input, name=None)`](https://www.tensorflow.org/versions/r0.12/api_docs/python/math_ops/matrix_math_functions#matrix_determinant)
+
+- [`tf.matrix_inverse(input, adjoint=None, name=None)`](https://www.tensorflow.org/versions/r0.12/api_docs/python/math_ops/matrix_math_functions#matrix_inverse)
+
+- [`tf.cholesky(input, name=None)`](https://www.tensorflow.org/versions/r0.12/api_docs/python/math_ops/matrix_math_functions#cholesky)
+
+- [`tf.cholesky_solve(chol, rhs, name=None)`](https://www.tensorflow.org/versions/r0.12/api_docs/python/math_ops/matrix_math_functions#cholesky_solve)
+
+- [`tf.matrix_solve(matrix, rhs, adjoint=None, name=None)`](https://www.tensorflow.org/versions/r0.12/api_docs/python/math_ops/matrix_math_functions#matrix_solve)
+
+- [`tf.matrix_triangular_solve(matrix, rhs, lower=None, adjoint=None, name=None)`](https://www.tensorflow.org/versions/r0.12/api_docs/python/math_ops/matrix_math_functions#matrix_triangular_solve)
+
+- [`tf.matrix_solve_ls(matrix, rhs, l2_regularizer=0.0, fast=True, name=None)`](https://www.tensorflow.org/versions/r0.12/api_docs/python/math_ops/matrix_math_functions#matrix_solve_ls)
+
+- [`tf.qr`](https://www.tensorflow.org/versions/master/api_docs/python/tf/qr)
+
+- [`tf.self_adjoint_eig(tensor, name=None)`](https://www.tensorflow.org/versions/r0.12/api_docs/python/math_ops/matrix_math_functions#self_adjoint_eig)
+
+- [`tf.self_adjoint_eigvals(tensor, name=None)`](https://www.tensorflow.org/versions/r0.12/api_docs/python/math_ops/matrix_math_functions#self_adjoint_eigvals)
+
+- [`tf.svd(tensor, full_matrices=False, compute_uv=True, name=None)`](https://www.tensorflow.org/versions/r0.12/api_docs/python/math_ops/matrix_math_functions#svd) 计算奇异值分解
+
+## 4. 复数函数
+
+## 5. 傅里叶变换函数 
+
+## 6. 减少
+
+Tensorflow提供了多种操作来减少张量维度的数学计算
+
+- [`tf.reduce_sum`](https://www.tensorflow.org/api_docs/python/tf/reduce_sum)：
+- [`tf.reduce_prod`](https://www.tensorflow.org/api_docs/python/tf/reduce_prod)
+- [`tf.reduce_min`](https://www.tensorflow.org/api_docs/python/tf/reduce_min)
+- [`tf.reduce_max`](https://www.tensorflow.org/api_docs/python/tf/reduce_max)
+- [`tf.reduce_mean`](https://www.tensorflow.org/api_docs/python/tf/reduce_mean)
+- [`tf.reduce_all`](https://www.tensorflow.org/api_docs/python/tf/reduce_all)
+- [`tf.reduce_any`](https://www.tensorflow.org/api_docs/python/tf/reduce_any)
+- [`tf.reduce_logsumexp`](https://www.tensorflow.org/api_docs/python/tf/reduce_logsumexp)
+- [`tf.count_nonzero`](https://www.tensorflow.org/api_docs/python/tf/count_nonzero)
+- [`tf.accumulate_n`](https://www.tensorflow.org/api_docs/python/tf/accumulate_n)
+- [`tf.einsum`](https://www.tensorflow.org/api_docs/python/tf/einsum)
+
+<br />
+
 # 二. 神经网络（Neural Network）
 
 ## 1. 激活函数
