@@ -97,7 +97,7 @@ metric是度量标准，总看成matrix。
 
 - `tf.negative`: 求反
 
-- `tf.sign` ：
+- `tf.sign` ：取符号
 
   y = sign(x) 
 
@@ -110,13 +110,68 @@ metric是度量标准，总看成matrix。
   1   if  x > 0.
 
 - [`tf.reciprocal(x, name=None)`](https://www.tensorflow.org/versions/r0.12/api_docs/python/math_ops/basic_math_functions#reciprocal) ：计算倒数
+
 - [`tf.square(x, name=None)`](https://www.tensorflow.org/versions/r0.12/api_docs/python/math_ops/basic_math_functions#square)： 计算每个元素的平方
+
 - [`tf.round(x, name=None)`](https://www.tensorflow.org/versions/r0.12/api_docs/python/math_ops/basic_math_functions#round)： 每个元素四舍五入
+
 - [`tf.sqrt(x, name=None)`](https://www.tensorflow.org/versions/r0.12/api_docs/python/math_ops/basic_math_functions#sqrt)： 每个元素求根号
+
 - [`tf.rsqrt(x, name=None)`](https://www.tensorflow.org/versions/r0.12/api_docs/python/math_ops/basic_math_functions#rsqrt)： 每个元素求根号再求倒数
+
 - [`tf.pow(x, y, name=None)`](https://www.tensorflow.org/versions/r0.12/api_docs/python/math_ops/basic_math_functions#pow)： 计算x的y次幂
+
 - [`tf.exp(x, name=None)`](https://www.tensorflow.org/versions/r0.12/api_docs/python/math_ops/basic_math_functions#exp)： 计算e的x次幂
+
 - [`tf.log(x, name=None)`](https://www.tensorflow.org/versions/r0.12/api_docs/python/math_ops/basic_math_functions#log)： 计算log的e的x
+
+- [`tf.ceil`](https://www.tensorflow.org/versions/master/api_docs/python/tf/ceil)：约等于之进一法
+
+- [`tf.floor`](https://www.tensorflow.org/versions/master/api_docs/python/tf/floor)
+
+- [`tf.maximum`](https://www.tensorflow.org/versions/master/api_docs/python/tf/maximum)
+
+- [`tf.minimum`](https://www.tensorflow.org/versions/master/api_docs/python/tf/minimum)
+
+- [`tf.cos`](https://www.tensorflow.org/versions/master/api_docs/python/tf/cos)
+
+- [`tf.sin`](https://www.tensorflow.org/versions/master/api_docs/python/tf/sin)
+
+- [`tf.lbeta`](https://www.tensorflow.org/versions/master/api_docs/python/tf/lbeta)
+
+- [`tf.tan`](https://www.tensorflow.org/versions/master/api_docs/python/tf/tan)
+
+- [`tf.acos`](https://www.tensorflow.org/versions/master/api_docs/python/tf/acos)
+
+- [`tf.asin`](https://www.tensorflow.org/versions/master/api_docs/python/tf/asin)
+
+- [`tf.atan`](https://www.tensorflow.org/versions/master/api_docs/python/tf/atan)
+
+- [`tf.cosh`](https://www.tensorflow.org/versions/master/api_docs/python/tf/cosh)
+
+- [`tf.sinh`](https://www.tensorflow.org/versions/master/api_docs/python/tf/sinh)
+
+- [`tf.lgamma`](https://www.tensorflow.org/versions/master/api_docs/python/tf/lgamma)
+
+- [`tf.digamma`](https://www.tensorflow.org/versions/master/api_docs/python/tf/digamma)
+
+- [`tf.erf`](https://www.tensorflow.org/versions/master/api_docs/python/tf/erf)
+
+- [`tf.erfc`](https://www.tensorflow.org/versions/master/api_docs/python/tf/erfc)
+
+- [`tf.squared_difference`](https://www.tensorflow.org/versions/master/api_docs/python/tf/squared_difference)
+
+- [`tf.igamma`](https://www.tensorflow.org/versions/master/api_docs/python/tf/igamma)
+
+- [`tf.igammac`](https://www.tensorflow.org/versions/master/api_docs/python/tf/igammac)
+
+- [`tf.zeta`](https://www.tensorflow.org/versions/master/api_docs/python/tf/zeta)
+
+- [`tf.polygamma`](https://www.tensorflow.org/versions/master/api_docs/python/tf/polygamma)
+
+- [`tf.betainc`](https://www.tensorflow.org/versions/master/api_docs/python/tf/betainc)
+
+- [`tf.rint`](https://www.tensorflow.org/versions/master/api_docs/python/tf/rint)
 
 ## 3. 矩阵数学函数
 
