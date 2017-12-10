@@ -36,25 +36,43 @@ CSDN博客：http://blog.csdn.net/sinat_23137713
 
 ## 3. 常量、序列和随机值（Constants, Sequences, and Random Values）
 
-## 4. 数学（Math）
+## 4. 控制流（Control Flow）
+
+用来向网络中添加条件语句的
+
+## 5. 数学（Math）
 
 基本的算术运算、数学函数、矩阵函数
 
-## 5. 评估指标（tf.metrics）
+## 6. 评估指标（tf.metrics）
 
 metric是度量标准，总看成matrix。
 
-## 6. 神经网络（Neural Network）
+## 7. 神经网络（Neural Network）
 
 这才是我们经常能用到的神经网络的层。
 
-## 7. 张量转换变形（Tensor Transformations）
+## 8. 张量转换变形（Tensor Transformations）
 
-## 8. 开发版代码（tf.contrib）
+## 9. 开发版代码（tf.contrib）
 
 易变或实验性的代码
 
 <br />
+
+# 二. 控制流（Control Flow）
+
+https://www.tensorflow.org/api_guides/python/control_flow_ops
+
+## 1. 控制流操作符
+
+- [`tf.identity`](https://www.tensorflow.org/api_docs/python/tf/identity)： 
+- [`tf.tuple`](https://www.tensorflow.org/api_docs/python/tf/tuple)
+- [`tf.group`](https://www.tensorflow.org/api_docs/python/tf/group)
+- [`tf.no_op`](https://www.tensorflow.org/api_docs/python/tf/no_op)
+- [`tf.count_up_to`](https://www.tensorflow.org/api_docs/python/tf/count_up_to)
+- [`tf.cond`](https://www.tensorflow.org/api_docs/python/tf/cond)
+- [`tf.case`](https://www.tensorflow.org/api_docs/python/tf/case)
 
 # 二. 数学 (Math)
 
