@@ -128,3 +128,17 @@ coord.request_stop()
 coord.join(threads)
 ```
 
+# 三. 固定种子
+
+神经网络，训练时，需要随机化初始权重，这却对设计网络造成了影响，因此在代码文件的顶端
+
+```
+seed = 123
+np.random.seed(seed)
+tf.set_random_seed(seed)
+```
+
+
+
+
+

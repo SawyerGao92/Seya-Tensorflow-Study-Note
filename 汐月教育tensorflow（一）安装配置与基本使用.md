@@ -127,9 +127,130 @@ print(sess.run(hello))
 
 # 四. 配置GPU下安装TF
 
+##1. 安装依赖
+
+安装顺序： NVIDIA DIRIVER - CUDA - CUDNN （我猜）
+
+### 1. NVIDIA DRIVER
+
+NVIDIA DRIVER下载地址：http://www.nvidia.cn/Download/index.aspx?lang=cn
+
+进入命令行：Ctrl-Alt+F1
+
+关闭图形界面：`sudo service lightdm stop`
+
+给run文件权限：`sudo chmod a+x NVIDIA-Linux-x86_64-375.20.run`
+
+安装：
+
+`sudo ./NVIDIA-Linux-x86_64-375.20.run –no-x-check –no-nouveau-check –no-opengl-files`
+
+–no-x-check 安装驱动时关闭X服务
+
+–no-nouveau-check 安装驱动时禁用nouveau
+
+–no-opengl-files 只安装驱动文件，不安装OpenGL文件
+
+结束：` sudo service lightdm start`
+
+`cat /proc/driver/nvidia/version` 查看驱动
+
+
+
+#### 遇到问题：
+
+##### ERROR: Unable to load the kernel module ‘nvidia.ko’. 
+
+解决方法： 
+
+http://www.linuxidc.com/Linux/2010-06/26779.htm and http://www.itkeyword.com/doc/4293258555587595321/unable-to-load-the-kernel-module-nvidia-ko
+
+a. 以管理员身份打开blacklist模块  `vim    /etc/modprobe.d/blacklist.conf` ；添加以下部分：
+
+```
+blacklist vga16fb
+blacklist nouveau
+blacklist rivafb
+blacklist nvidiafb
+blacklist rivatv
+```
+
+b. 删除安装的驱动
+
+`sudo apt-get --purge remove nvidia-*`
+
+c. 输入秘密代码
+
+`sudo update-initramfs -u`
+
+d. 重启再次安装
+
+
+
+###2. CUDA
+
+CUDA下载地址： https://developer.nvidia.com/cuda-downloads，选择下面Legacy Releases，CUDA Toolkit 8.0 GA2， 注意一定要下载runfile,
+
+安装依赖：
+
+```
+sudo apt-get install freeglut3-dev 
+sudo apt-get install build-essential 
+sudo apt-get install libx11-dev 
+sudo apt-get install libxmu-dev 
+sudo apt-get install libxi-dev 
+sudo apt-get install libglu1-mesa 
+sudo apt-get install libglu1-mesa-dev 
+```
+
+安装cuDA：
+
+`sudo sh cuda_8.0.44_linux.run —override`
+
+出现Install NVIDIA Accelerated Graphics Driver?  选择n，不要安装驱动
+
+以及在弹出xorg.conf时选择NO
+
+添加环境变量：
+
+`sudo gedit ~/.bashrc` 
+
+```
+export PATH=/usr/local/cuda-8.0/bin${PATH:+:${PATH}}
+export LD_LIBRARY_PATH=/usr/local/cuda8.0-/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+```
+
+
+
+如果卸载：按照，http://blog.csdn.net/u012436149/article/details/53163346
+
+
+
+###3. cuDNN（是CUDA的一个增强插件）
+
+CUDNN下载地址： https://developer.nvidia.com/rdp/cudnn-download, 选择cuDNN v5.1 for CUDA8.0
+
+进入cuDNN存放的文件夹，输入：
+
+`tar -zxvf cudnn-8.0-linux-x64-v5.1.tgz`
+
+解压安装包以后在当前目录会出现cuda的文件夹，把其中的文件拷贝到系统相应目录:
+
+```Shell
+sudo cp -a cuda/include/cudnn.h /usr/local/cuda/include/
+sudo cp -a cuda/lib64/libcudnn* /usr/local/cuda/lib64/ 
+```
+
+给权限：
+
+```
+ sudo chmod a+r /usr/local/cuda/include/cudnn.h /usr/local/cuda/lib64/libcudnn*
+```
+
+##2. 添加环境变量
+
 ```shell
 export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/local/cuda/lib64:/usr/local/cuda/extras/CUPTI/lib64"
-
 export CUDA_HOME=/usr/local/cuda
 ```
 
@@ -139,15 +260,18 @@ export CUDA_HOME=/usr/local/cuda
 
 因为pycharm执行环境和.bashrc文件独立的
 
+是这样，You might want to put your LD_LIBRARY_PATH setting in .bash_profile then it will be applied when you log in.
+
+###1. 
+
 在.bashrc中添加：
 
 ```shell
 export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/local/cuda/lib64:/usr/local/cuda/extras/CUPTI/lib64"
-
 export CUDA_HOME=/usr/local/cuda
 ```
 
-在/bin/pycharm.sh中添加：
+在/bin/pycharm.sh中，185行左右，`LD_LIBRARY_PATH="$IDE_BIN_HOME:$LD_LIBRARY_PATH" "$JAVA_BIN" \` 变成：
 
 ```shell
 LD_LIBRARY_PATH='/usr/local/cuda/lib64' 
@@ -155,7 +279,11 @@ LD_LIBRARY_PATH='/usr/local/cuda/lib64'
 LD_LIBRARY_PATH='$LD_LIBRARY_PATH:LD_LIBRARY_PATH/usr/local/cuda/extras/CUPTI/lib64'
 ```
 
-  
+没找到，然后去软件里添加就行了。
+
+###2. 
+
+`source ~/.bashrc #使更改的环境变量生效`
 
 参考博客：
 
