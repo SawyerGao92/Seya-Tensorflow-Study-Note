@@ -36,31 +36,111 @@ CSDN博客：http://blog.csdn.net/sinat_23137713
 
 ## 3. 常量、序列和随机值（Constants, Sequences, and Random Values）
 
-## 4. 控制流（Control Flow）
+## 4. 变量 （Variable）
+
+tensorflow 中很多
+
+## 5. 控制流（Control Flow）
 
 用来向网络中添加条件语句的
 
-## 5. 数学（Math）
+## 6. 数学（Math）
 
-基本的算术运算、数学函数、矩阵函数
+基本的算术运算、数学函数、矩阵函数、张量函数
 
-## 6. 评估指标（tf.metrics）
+## 7. 评估指标（tf.metrics）
 
 metric是度量标准，总看成matrix。
 
-## 7. 神经网络（Neural Network）
+## 8. 神经网络（Neural Network）
 
 这才是我们经常能用到的神经网络的层。
 
-## 8. 张量转换变形（Tensor Transformations）
+## 9. 张量转换变形（Tensor Transformations）
 
-## 9. 开发版代码（tf.contrib）
+在math中也有很重要的张量处理部分。
+
+## 10. 高维函数 （Higher Order Operators）
+
+类似于map函数
+
+## 10. 开发版代码（tf.contrib）
 
 易变或实验性的代码
 
+## 11. 其他
+
+
+
 <br />
 
-# 二. 控制流（Control Flow）
+# 二. 建立图（Building Graphs）
+
+## 1. 核心的图数据结构
+
+- [`tf.Graph`](https://www.tensorflow.org/api_docs/python/tf/Graph)
+- [`tf.Operation`](https://www.tensorflow.org/api_docs/python/tf/Operation)
+- [`tf.Tensor`](https://www.tensorflow.org/api_docs/python/tf/Tensor)
+
+##2. 张量类型
+
+- [`tf.DType`](https://www.tensorflow.org/api_docs/python/tf/DType)
+- [`tf.as_dtype`](https://www.tensorflow.org/api_docs/python/tf/as_dtype)
+
+## 3. 实用函数
+
+- [`tf.device`](https://www.tensorflow.org/api_docs/python/tf/device)
+- [`tf.container`](https://www.tensorflow.org/api_docs/python/tf/container)
+- [`tf.name_scope`](https://www.tensorflow.org/api_docs/python/tf/name_scope)
+- [`tf.control_dependencies`](https://www.tensorflow.org/api_docs/python/tf/control_dependencies)
+- [`tf.convert_to_tensor`](https://www.tensorflow.org/api_docs/python/tf/convert_to_tensor)
+- [`tf.convert_to_tensor_or_indexed_slices`](https://www.tensorflow.org/api_docs/python/tf/convert_to_tensor_or_indexed_slices)
+- [`tf.convert_to_tensor_or_sparse_tensor`](https://www.tensorflow.org/api_docs/python/tf/convert_to_tensor_or_sparse_tensor)
+- [`tf.get_default_graph`](https://www.tensorflow.org/api_docs/python/tf/get_default_graph)
+- [`tf.reset_default_graph`](https://www.tensorflow.org/api_docs/python/tf/reset_default_graph)
+- [`tf.import_graph_def`](https://www.tensorflow.org/api_docs/python/tf/import_graph_def)
+- [`tf.load_file_system_library`](https://www.tensorflow.org/api_docs/python/tf/load_file_system_library)
+- [`tf.load_op_library`](https://www.tensorflow.org/api_docs/python/tf/load_op_library)
+
+## 4. 图的采集
+
+- [`tf.add_to_collection`](https://www.tensorflow.org/api_docs/python/tf/add_to_collection)
+- [`tf.get_collection`](https://www.tensorflow.org/api_docs/python/tf/get_collection)
+- [`tf.get_collection_ref`](https://www.tensorflow.org/api_docs/python/tf/get_collection_ref)
+- [`tf.GraphKeys`](https://www.tensorflow.org/api_docs/python/tf/GraphKeys)
+
+
+# 三. 常量、序列和随机值（Constants, Sequences, and Random Values）
+
+## 1. 常量
+
+- [`tf.zeros`](https://www.tensorflow.org/api_docs/python/tf/zeros)	生成全是0的张量，
+- [`tf.zeros_like`](https://www.tensorflow.org/api_docs/python/tf/zeros_like)
+- [`tf.ones`](https://www.tensorflow.org/api_docs/python/tf/ones)
+- [`tf.ones_like`](https://www.tensorflow.org/api_docs/python/tf/ones_like)
+- [`tf.fill`](https://www.tensorflow.org/api_docs/python/tf/fill)
+- [`tf.constant`](https://www.tensorflow.org/api_docs/python/tf/constant) 
+
+## 2. 序列
+
+- [`tf.linspace`](https://www.tensorflow.org/api_docs/python/tf/lin_space)
+- [`tf.range`](https://www.tensorflow.org/api_docs/python/tf/range)
+
+## 3. 随机张量
+
+- [`tf.random_normal`](https://www.tensorflow.org/api_docs/python/tf/random_normal)
+- [`tf.truncated_normal`](https://www.tensorflow.org/api_docs/python/tf/truncated_normal)
+- [`tf.random_uniform`](https://www.tensorflow.org/api_docs/python/tf/random_uniform)
+- [`tf.random_shuffle`](https://www.tensorflow.org/api_docs/python/tf/random_shuffle)
+- [`tf.random_crop`](https://www.tensorflow.org/api_docs/python/tf/random_crop)
+- [`tf.multinomial`](https://www.tensorflow.org/api_docs/python/tf/multinomial)
+- [`tf.random_gamma`](https://www.tensorflow.org/api_docs/python/tf/random_gamma)
+- [`tf.set_random_seed`](https://www.tensorflow.org/api_docs/python/tf/set_random_seed)
+
+
+
+
+# 三. 控制流（Control Flow）
 
 https://www.tensorflow.org/api_guides/python/control_flow_ops
 
@@ -74,7 +154,7 @@ https://www.tensorflow.org/api_guides/python/control_flow_ops
 - [`tf.cond`](https://www.tensorflow.org/api_docs/python/tf/cond)
 - [`tf.case`](https://www.tensorflow.org/api_docs/python/tf/case)
 
-# 二. 数学 (Math)
+# 四. 数学 (Math)
 
 **https://www.tensorflow.org/versions/r0.12/api_docs/python/math_ops/**
 
@@ -197,6 +277,8 @@ https://www.tensorflow.org/api_guides/python/control_flow_ops
 
 - [`tf.diag_part(input, name=None)`](https://www.tensorflow.org/versions/r0.12/api_docs/python/math_ops/matrix_math_functions#diag_part)：输入一个张量，返回这个张量的对角向量
 
+  ​	对于张量来说，Assume `input` has dimensions `[D1,..., Dk, D1,..., Dk]`, then the output is a tensor of rank `k` with dimensions `[D1,..., Dk]` where:
+
 - [`tf.trace(x, name=None)`](https://www.tensorflow.org/versions/r0.12/api_docs/python/math_ops/matrix_math_functions#trace)：计算一个张量，其对角向量的和
 
 - [`tf.transpose(a, perm=None, name='transpose')`](https://www.tensorflow.org/versions/r0.12/api_docs/python/math_ops/matrix_math_functions#transpose)
@@ -205,7 +287,11 @@ https://www.tensorflow.org/api_guides/python/control_flow_ops
 
 - [`tf.matrix_diag(diagonal, name=None)`](https://www.tensorflow.org/versions/r0.12/api_docs/python/math_ops/matrix_math_functions#matrix_diag)
 
-- [`tf.matrix_diag_part(input, name=None)`](https://www.tensorflow.org/versions/r0.12/api_docs/python/math_ops/matrix_math_functions#matrix_diag_part)
+- [`tf.matrix_diag_part(input, name=None)`](https://www.tensorflow.org/versions/r0.12/api_docs/python/math_ops/matrix_math_functions#matrix_diag_part)：
+
+  ​	带part的都是只取对角线上的元素，Assume `input` has `k` dimensions `[I, J, K, ..., M, N]`, then the output is a tensor of rank `k - 1` with dimensions `[I, J, K, ..., min(M, N)]` where:
+
+  ​
 
 - [`tf.matrix_band_part(input, num_lower, num_upper, name=None)`](https://www.tensorflow.org/versions/r0.12/api_docs/python/math_ops/matrix_math_functions#matrix_band_part)
 
@@ -245,9 +331,11 @@ https://www.tensorflow.org/api_guides/python/control_flow_ops
 
 - [`tf.svd(tensor, full_matrices=False, compute_uv=True, name=None)`](https://www.tensorflow.org/versions/r0.12/api_docs/python/math_ops/matrix_math_functions#svd) 计算奇异值分解
 
-## 4. 复数函数
+## 4. 张量函数
 
-## 5. 傅里叶变换函数 
+- [`tf.tensordot`](https://www.tensorflow.org/api_docs/python/tf/tensordot) 张量乘法
+
+## 5. 复数函数 
 
 ## 6. 减少
 
@@ -267,7 +355,7 @@ Tensorflow提供了多种操作来减少张量维度的数学计算
 
 <br />
 
-# 二. 神经网络（Neural Network）
+# 五. 神经网络（Neural Network）
 
 ## 1. 激活函数
 
@@ -284,7 +372,7 @@ Tensorflow提供了多种操作来减少张量维度的数学计算
 
 <br />
 
-# 三. 张量转换（Tensor Transformation）
+# 六. 张量转换（Tensor Transformation）
 
 ## 1. 转换张量中数据类型
 
@@ -304,7 +392,9 @@ tf.rank
 
 tf.reshape
 
-tf.squeeze
+- [`tf.squeeze`](https://www.tensorflow.org/api_docs/python/tf/squeeze)  去除张量中维度长为1的维度
+
+  ​
 
 ## 3. 切片和连结
 
@@ -354,6 +444,17 @@ tf.squeeze
 
 ​	perm：参数，对于高维矩阵
 
+###9) 根据下标从张量中切片 
+
+- [`tf.gather`](https://www.tensorflow.org/api_docs/python/tf/gather)
+- [`tf.gather_nd`](https://www.tensorflow.org/api_docs/python/tf/gather_nd)
+
+gather是在axis这一维度中进行切片。
+
+gather_nd，nd是n-dimension的意思，输入的indices不是一维的了，它是几维度的就冲张量中提取该维度的切片。
+
+
+
 对于高维矩阵
 
 
@@ -366,11 +467,43 @@ tf.squeeze
 
 <br />
 
-# 四. 开发版代码（tf.contrib）
+# 八. 高维函数 （Higher Order Operators）
+
+- [`tf.map_fn`](https://www.tensorflow.org/api_docs/python/tf/map_fn)(fn, elems, dtype=None, parallel_iterations=10, back_prop=True, swap_memory=False, infer_shape=True, name=None)
+
+  将elems中从第0维展开的张量进行重复应用fn函数，dtype是fn的返回值的类型，如果fn输入和输出的类型不一致的话，一定要
+
+  ​
+
+- [`tf.foldl`](https://www.tensorflow.org/api_docs/python/tf/foldl)
+
+- [`tf.foldr`](https://www.tensorflow.org/api_docs/python/tf/foldr)
+
+- [`tf.scan`](https://www.tensorflow.org/api_docs/python/tf/scan)
+
+<br />
+
+# 七. 开发版代码（tf.contrib）
 
 tf.contrib中主要包含现在实验性的代码
 
 ## 1. 构建-误差-训练过程的高层API（tf.contrib.learn）
+
+
+
+# 十一. 其他
+
+## 1. 自定义op（python 函数的使用）
+
+* [tf.py_func(func, inp, Tout, stateful=True, name=None)](https://www.tensorflow.org/api_docs/python/tf/py_func)
+
+可以将任意的python函数`func`转变为TensorFlow op。
+
+`func`接收的输入必须是numpy array，可以接受多个输入参数；输出也是numpy array，也可以有多个输出。inp传入输入值，Tout指定输出的基本数据类型。
+
+
+
+
 
 详情请见：
 
